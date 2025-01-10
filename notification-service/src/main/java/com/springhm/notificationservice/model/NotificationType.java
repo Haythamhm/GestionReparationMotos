@@ -1,0 +1,13 @@
+package com.springhm.notificationservice.model;
+
+public enum NotificationType {
+    MAINTENANCE_STATUS,
+    PAYMENT_CONFIRMATION,
+    MAINTENANCE_REMINDER,
+    GENERAL_NOTIFICATION,
+    /*MAINTENANCE_SCHEDULED,
+    MAINTENANCE_CANCELLED,
+    MAINTENANCE_RESCHEDULED,
+    MAINTENANCE_COMPLETED*/
+
+}

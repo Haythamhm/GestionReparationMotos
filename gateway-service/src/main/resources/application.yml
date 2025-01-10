@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: r1
+          uri: lb://client-service
+          predicates:
+            Path= /api/clients/**
+        - id: r2
+          uri: lb://motorcycle-service
+          predicates:
+            Path= /api/motorcycles/**
+        - id: r3
+          uri: lb://maintenance-service
+          predicates:
+            Path= /api/maintenance/**
+        - id: r4
+          uri: lb://paiement-service
+          predicates:
+            Path= /api/payments/**
+        - id: r5
+          uri: lb://notification-service
+          predicates:
+            Path= /api/notifications/**
+        - id: r6
+          uri: lb://report-service
+          predicates:
+            Path= /api/reports/**
