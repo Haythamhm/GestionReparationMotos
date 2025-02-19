@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { createMotorcycle } from '../../api/motorcycleAPI';
+import { Motorcycle } from '../../types';
 
-const MotorcycleForm = ({ onAdd }: { onAdd: (motorcycle: any) => void }) => {
-    const [formData, setFormData] = useState({ brand: '', model: '', color: '', mileage: 0, condition: '' });
+interface MotorcycleFormProps {
+    onAdd: (motorcycle: Motorcycle) => void;
+}
+
+const MotorcycleForm: React.FC<MotorcycleFormProps> = ({ onAdd }) => {
+    const [formData, setFormData] = useState({ clientId: '', brand: '', model: '', color: '', mileage: 0, condition: '' });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -14,13 +19,17 @@ const MotorcycleForm = ({ onAdd }: { onAdd: (motorcycle: any) => void }) => {
         createMotorcycle(formData)
             .then(response => {
                 onAdd(response.data);
-                setFormData({ brand: '', model: '', color: '', mileage: 0, condition: '' });
+                setFormData({ clientId: '', brand: '', model: '', color: '', mileage: 0, condition: '' });
             })
             .catch(error => console.error('Error creating motorcycle:', error));
     };
 
     return (
         <form onSubmit={handleSubmit} className="border p-4 mt-4">
+            <label className="block">
+                Client ID:
+                <input type="number" name="clientId" value={formData.clientId} onChange={handleChange} className="border p-1 w-full" />
+            </label>
             <label className="block">
                 Brand:
                 <input type="text" name="brand" value={formData.brand} onChange={handleChange} className="border p-1 w-full" />

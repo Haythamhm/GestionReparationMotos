@@ -1,44 +1,70 @@
-import { Users, Wrench, DollarSign, BarChart2, X, Bike } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Bike, X, Menu, Users, Wrench, DollarSign, BarChart2, Package } from 'lucide-react';
+
+const navigation = [
+    { name: 'Dashboard', path: '/admin', icon: BarChart2 },
+    { name: 'Clients', path: '/admin/clients', icon: Users },
+    { name: 'Motorcycles', path: '/admin/motorcycles', icon: Bike },
+    { name: 'Parts', path: '/admin/parts', icon: Package },
+    { name: 'Maintenance', path: '/admin/maintenance', icon: Wrench },
+    { name: 'Payments', path: '/admin/payments', icon: DollarSign }
+];
 
 interface SidebarProps {
     isOpen: boolean;
     toggleSidebar: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => (
-  <div className={`fixed inset-y-0 left-0 w-64 bg-[#229799] text-white shadow-lg transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-50 md:relative md:translate-x-0`}>
-    <div className="flex justify-between items-center p-4 md:hidden">
-      <h1 className="text-xl font-bold">Menu</h1>
-      <button onClick={toggleSidebar} className="text-white">
-        <X size={24} />
-      </button>
-    </div>
-    <nav className="p-4">
-      <ul className="space-y-4">
-        <li className="flex items-center">
-          <BarChart2 className="mr-2" />
-          <Link to="/" onClick={toggleSidebar} className="hover:text-[#48CFCB]">Dashboard</Link>
-        </li>
-        <li className="flex items-center">
-          <Users className="mr-2" />
-          <Link to="/clients" onClick={toggleSidebar} className="hover:text-[#48CFCB]">Clients</Link>
-        </li>
-        <li className="flex items-center">
-          <Bike className="mr-2" />
-          <Link to="/motorcycles" onClick={toggleSidebar} className="hover:text-[#48CFCB]">Motorcycles</Link>
-        </li>
-        <li className="flex items-center">
-          <Wrench className="mr-2" />
-          <Link to="/maintenance" onClick={toggleSidebar} className="hover:text-[#48CFCB]">Maintenance</Link>
-        </li>
-        <li className="flex items-center">
-          <DollarSign className="mr-2" />
-          <Link to="/payments" onClick={toggleSidebar} className="hover:text-[#48CFCB]">Payments</Link>
-        </li>
-      </ul>
-    </nav>
-  </div>
-);
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
+    return (
+        <>
+            {/* Mobile menu button */}
+            <button
+                className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#393E46]"
+                onClick={toggleSidebar}
+            >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            {/* Overlay */}
+            {isOpen && (
+                <div
+                    className="lg:hidden fixed inset-0 bg-black/50 z-40"
+                    onClick={toggleSidebar}
+                />
+            )}
+
+            {/* Sidebar */}
+            <div
+                className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-[#393E46] transform transition-transform duration-300 ease-in-out
+                           ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
+            >
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center gap-2 p-4">
+                        <Bike className="h-8 w-8 text-[#00ADB5]" />
+                        <span className="text-xl font-bold text-white">MotoRepair</span>
+                    </div>
+
+                    <nav className="flex-1 px-2 py-4 space-y-1">
+                        {navigation.map((item) => (
+                            <NavLink
+                                key={item.name}
+                                to={item.path}
+                                className={({ isActive }) =>
+                                    `flex items-center p-2 text-base font-medium rounded-md text-white hover:bg-[#00ADB5] transition-colors duration-200 ${isActive ? 'bg-[#00ADB5]' : ''}`
+                                }
+                                onClick={toggleSidebar}
+                            >
+                                <item.icon className="h-5 w-5 mr-3" />
+                                {item.name}
+                            </NavLink>
+                        ))}
+                    </nav>
+                </div>
+            </div>
+        </>
+    );
+};
 
 export default Sidebar;

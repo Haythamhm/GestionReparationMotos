@@ -3,7 +3,7 @@ import { fetchClients, deleteClient } from '../../api/clientAPI';
 import { Link } from 'react-router-dom';
 import { Client } from '../../types';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
-import { Delete, Edit } from '@mui/icons-material';
+import { Delete, Edit, Visibility } from '@mui/icons-material';
 
 interface ClientListProps {
     clients: Client[];
@@ -24,10 +24,11 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onClientUpdated }) => 
     };
 
     return (
-        <TableContainer component={Paper} className="mt-4">
+        <TableContainer component={Paper}>
             <Table>
                 <TableHead>
                     <TableRow>
+                        <TableCell>ID</TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Email</TableCell>
                         <TableCell>Address</TableCell>
@@ -37,19 +38,21 @@ const ClientList: React.FC<ClientListProps> = ({ clients, onClientUpdated }) => 
                 </TableHead>
                 <TableBody>
                     {clients.map(client => (
-                        <TableRow key={client.id} className="hover:bg-[#F5F5F5] transition-colors duration-300">
+                        <TableRow key={client.id}>
+                            <TableCell>{client.id}</TableCell>
                             <TableCell>{client.name}</TableCell>
                             <TableCell>{client.email}</TableCell>
                             <TableCell>{client.address}</TableCell>
                             <TableCell>{client.phone}</TableCell>
                             <TableCell>
-                                <Link to={`/clients/${client.id}`}>
-                                    <IconButton color="primary">
-                                        <Edit />
-                                    </IconButton>
-                                </Link>
-                                <IconButton color="secondary" onClick={() => client.id !== undefined && handleDelete(client.id)}>
-                                    <Delete />
+                                <IconButton component={Link} to={`/admin/clients/${client.id}`}>
+                                    <Visibility color="primary" />
+                                </IconButton>
+                                <IconButton component={Link} to={`/clients/edit/${client.id}`}>
+                                    <Edit color="primary" />
+                                </IconButton>
+                                <IconButton onClick={() => handleDelete(client.id!)}>
+                                    <Delete color="secondary" />
                                 </IconButton>
                             </TableCell>
                         </TableRow>

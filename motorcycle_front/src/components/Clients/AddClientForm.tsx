@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+/*import { useState, ChangeEvent, FormEvent } from 'react';
 import { createClient } from '../../api/clientAPI';
 import { Client } from '../../types';
 
@@ -47,4 +47,4 @@ const AddClientForm: React.FC<AddClientFormProps> = ({ onClientAdded }) => {
     );
 };
 
-export default AddClientForm;
+export default AddClientForm;*/

@@ -26,3 +26,14 @@ spring:
           uri: lb://report-service
           predicates:
             Path= /api/reports/**
+        - id: r7
+          uri: lb://pieces-service
+          predicates:
+            Path= /api/parts/**
+        - id: r8
+          uri: lb://Auth-service
+          predicates: Path= /api/auth/**
+
+  security:
+    jwtSecret: 9Br2N0u0i3
+    jwtExpirationMs: 86400000

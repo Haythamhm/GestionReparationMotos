@@ -8,5 +8,5 @@ import java.util.List;
 public interface MaintenanceRepository extends JpaRepository<Maintenance, Long> {
     List<Maintenance> findByClientId(Long clientId);
     List<Maintenance> findByMotorcycleId(Long motorcycleId);
-    List<Maintenance> findByClientIdAndMotorcycleId(Long clientId, Long motorcycleId);
+    //List<Maintenance> findByClientIdAndMotorcycleId(Long clientId, Long motorcycleId);
 }

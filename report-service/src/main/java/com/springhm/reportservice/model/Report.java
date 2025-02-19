@@ -12,18 +12,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Report {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String type;
-
     private String title;
-
     private String content;
-
     private LocalDateTime generatedAt;
-
     private Long generatedBy;
 
     @Column(nullable = false)

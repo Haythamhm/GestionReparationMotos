@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchMotorcycles, deleteMotorcycle } from '../../api/motorcycleAPI';
+import { Motorcycle } from '../../types';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
-const MotorcycleList = () => {
-    const [motorcycles, setMotorcycles] = useState<any[]>([]);
+interface MotorcycleListProps {
+    motorcycles: Motorcycle[];
+    setMotorcycles: (motorcycles: Motorcycle[]) => void;
+}
 
+const MotorcycleList: React.FC<MotorcycleListProps> = ({ motorcycles, setMotorcycles }) => {
     useEffect(() => {
         fetchMotorcycles()
             .then(response => setMotorcycles(response.data))
             .catch(error => console.error('Error fetching motorcycles:', error));
-    }, []);
+    }, [setMotorcycles]);
 
     const handleDelete = (id: number) => {
         deleteMotorcycle(id)
@@ -17,14 +23,38 @@ const MotorcycleList = () => {
     };
 
     return (
-        <ul className="mt-4">
-            {motorcycles.map(motorcycle => (
-                <li key={motorcycle.id} className="border p-2 my-2">
-                    <p>{motorcycle.brand} - {motorcycle.model} - {motorcycle.color}</p>
-                    <button onClick={() => handleDelete(motorcycle.id)} className="bg-red-500 text-white p-1 mt-1">Delete</button>
-                </li>
-            ))}
-        </ul>
+        <TableContainer component={Paper} className="mt-4">
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Client ID</TableCell>
+                        <TableCell>Brand</TableCell>
+                        <TableCell>Model</TableCell>
+                        <TableCell>Color</TableCell>
+                        <TableCell>Mileage</TableCell>
+                        <TableCell>Condition</TableCell>
+                        <TableCell>Actions</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {motorcycles.map(motorcycle => (
+                        <TableRow key={motorcycle.id} className="hover:bg-[#F5F5F5] transition-colors duration-300">
+                            <TableCell>{motorcycle.clientId}</TableCell>
+                            <TableCell>{motorcycle.brand}</TableCell>
+                            <TableCell>{motorcycle.model}</TableCell>
+                            <TableCell>{motorcycle.color}</TableCell>
+                            <TableCell>{motorcycle.mileage}</TableCell>
+                            <TableCell>{motorcycle.condition}</TableCell>
+                            <TableCell>
+                                <IconButton color="secondary" onClick={() => motorcycle.id !== undefined && handleDelete(motorcycle.id)}>
+                                    <Delete />
+                                </IconButton>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 };
 
