@@ -1,6 +1,5 @@
 package com.springhm.notificationservice.controller;
 
-
 import com.springhm.notificationservice.model.Notification;
 import com.springhm.notificationservice.service.NotificationService;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +59,4 @@ public class NotificationController {
             @RequestParam String transactionId) {
         return ResponseEntity.ok(notificationService.createPaymentConfirmationNotification(clientId, transactionId));
     }
-
-
 }

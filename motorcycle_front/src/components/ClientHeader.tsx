@@ -40,6 +40,14 @@ const ClientHeader = () => {
                             Contact
                         </NavLink>
                         <NavLink 
+                            to="/dashboard" 
+                            className={({ isActive }) => 
+                                `transition duration-200 ${isActive ? 'text-[#00ADB5]' : 'hover:text-[#00ADB5]'}`
+                            }
+                        >
+                            Dashboard
+                        </NavLink>
+                        <NavLink 
                             to="/login" 
                             className={({ isActive }) => 
                                 `flex items-center space-x-1 transition duration-200 ${isActive ? 'text-[#00ADB5]' : 'hover:text-[#00ADB5]'}`
@@ -91,6 +99,13 @@ const ClientHeader = () => {
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Contact
+                        </NavLink>
+                        <NavLink 
+                            to="/dashboard" 
+                            className="block py-2 hover:text-[#00ADB5]"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Dashboard
                         </NavLink>
                         <NavLink 
                             to="/login" 

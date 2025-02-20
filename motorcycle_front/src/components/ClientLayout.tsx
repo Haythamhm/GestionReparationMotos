@@ -1,9 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import ClientHeader from './ClientHeader';
 import ClientFooter from './ClientFooter';
-import HomePage from '../pages/HomePage';
-import AboutUsPage from '../pages/AboutUsPage';
-import ContactUsPage from '../pages/ContactUsPage';
 
 const ClientLayout = () => {
     return (
@@ -17,4 +14,4 @@ const ClientLayout = () => {
     );
 };
 
-export { ClientLayout, HomePage, AboutUsPage, ContactUsPage };
+export default ClientLayout;

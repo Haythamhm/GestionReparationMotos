@@ -38,7 +38,7 @@ export interface Motorcycle {
 }
 
 export interface Payment {
-    id?: number;
+    id: string; // Ensure id is a string
     maintenanceId: number;
     clientId: number;
     amount: number;

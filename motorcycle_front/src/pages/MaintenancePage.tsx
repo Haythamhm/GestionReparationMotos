@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import MaintenanceForm from '../components/Maintenance/MaintenanceForm';
 import MaintenanceList from '../components/Maintenance/MaintenanceList';
 import { Maintenance } from '../types';
@@ -26,7 +26,7 @@ const MaintenancePage = () => {
     return (
         <div className="p-8">
             <h1 className="text-2xl">Maintenance</h1>
-            <MaintenanceForm onAdd={handleAddMaintenance} />
+            <MaintenanceForm onSubmit={handleAddMaintenance} />
             <MaintenanceList maintenanceList={maintenanceList} setMaintenanceList={setMaintenanceList} />
         </div>
     );

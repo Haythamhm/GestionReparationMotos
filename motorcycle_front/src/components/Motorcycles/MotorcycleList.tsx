@@ -1,27 +1,15 @@
-import { useEffect } from 'react';
-import { fetchMotorcycles, deleteMotorcycle } from '../../api/motorcycleAPI';
+import React from 'react';
 import { Motorcycle } from '../../types';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
-import { Delete } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 
 interface MotorcycleListProps {
     motorcycles: Motorcycle[];
-    setMotorcycles: (motorcycles: Motorcycle[]) => void;
+    onDelete: (id: number) => void;
+    onEdit: (motorcycle: Motorcycle) => void;
 }
 
-const MotorcycleList: React.FC<MotorcycleListProps> = ({ motorcycles, setMotorcycles }) => {
-    useEffect(() => {
-        fetchMotorcycles()
-            .then(response => setMotorcycles(response.data))
-            .catch(error => console.error('Error fetching motorcycles:', error));
-    }, [setMotorcycles]);
-
-    const handleDelete = (id: number) => {
-        deleteMotorcycle(id)
-            .then(() => setMotorcycles(motorcycles.filter(motorcycle => motorcycle.id !== id)))
-            .catch(error => console.error('Error deleting motorcycle:', error));
-    };
-
+const MotorcycleList: React.FC<MotorcycleListProps> = ({ motorcycles, onDelete, onEdit }) => {
     return (
         <TableContainer component={Paper} className="mt-4">
             <Table>
@@ -46,7 +34,10 @@ const MotorcycleList: React.FC<MotorcycleListProps> = ({ motorcycles, setMotorcy
                             <TableCell>{motorcycle.mileage}</TableCell>
                             <TableCell>{motorcycle.condition}</TableCell>
                             <TableCell>
-                                <IconButton color="secondary" onClick={() => motorcycle.id !== undefined && handleDelete(motorcycle.id)}>
+                                <IconButton color="primary" onClick={() => onEdit(motorcycle)}>
+                                    <Edit />
+                                </IconButton>
+                                <IconButton color="secondary" onClick={() => motorcycle.id !== undefined && onDelete(motorcycle.id)}>
                                     <Delete />
                                 </IconButton>
                             </TableCell>

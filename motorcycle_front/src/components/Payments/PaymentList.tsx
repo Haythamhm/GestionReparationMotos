@@ -1,6 +1,12 @@
+import React from 'react';
 import { Payment } from '../../types';
+import { generatePdfReceipt } from '../../utils/generatePdfReceipt';
 
-const PaymentList = ({ payments }: { payments: Payment[] }) => {
+interface PaymentListProps {
+    payments: Payment[];
+}
+
+const PaymentList: React.FC<PaymentListProps> = ({ payments }) => {
     return (
         <div className="mt-4">
             <table className="min-w-full bg-white">
@@ -13,6 +19,7 @@ const PaymentList = ({ payments }: { payments: Payment[] }) => {
                         <th className="py-2">Payment Method</th>
                         <th className="py-2">Payment Date</th>
                         <th className="py-2">Transaction ID</th>
+                        <th className="py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +32,14 @@ const PaymentList = ({ payments }: { payments: Payment[] }) => {
                             <td className="py-2">{payment.paymentMethod}</td>
                             <td className="py-2">{new Date(payment.paymentDate).toLocaleDateString()}</td>
                             <td className="py-2">{payment.transactionId}</td>
+                            <td className="py-2">
+                                <button
+                                    onClick={() => generatePdfReceipt(payment)}
+                                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                                >
+                                    Download Receipt
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
